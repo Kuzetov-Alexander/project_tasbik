@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 
 class SmallContainer extends StatelessWidget {
-  SmallContainer({Key? key, required this.number}) : super(key: key);
+  const SmallContainer({Key? key, required this.number}) : super(key: key);
 
-  int number;
+  final int number;
 
   @override
   Widget build(BuildContext context) {

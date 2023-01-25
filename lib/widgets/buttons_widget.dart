@@ -19,12 +19,11 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
     return Row(
       children: [
         Container(
-          // constraints: const BoxConstraints(maxHeight: 48),
           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 1.w),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10), color: Colors.black
-              // const Color(0xffFFFFFF),
-              ),
+            borderRadius: BorderRadius.circular(10),
+            color: const Color(0xffFFFFFF),
+          ),
           child: Row(
             children: [
               TextButton(
@@ -43,8 +42,8 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                   backgroundColor: _switcher[0] == true
                       ? MaterialStateProperty.all(const Color(0xff4664FF))
                       : MaterialStateProperty.all(const Color(0xffFFFFFF)),
-                  minimumSize: MaterialStateProperty.all(Size(34.w, 40)),
-                  maximumSize: MaterialStateProperty.all(Size(34.w, 40)),
+                  minimumSize: MaterialStateProperty.all(Size(50.w, 40)),
+                  maximumSize: MaterialStateProperty.all(Size(50.w, 40)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -65,49 +64,49 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
                 ),
               ),
               const SizedBox(width: 4),
-              // TextButton(
-              //   onPressed: () {
-              //     setState(() {
-              //       _switcher[1] = true;
-              //       for (int j = 0; j < _switcher.length; j++) {
-              //         if (j != 1) {
-              //           _switcher[j] = false;
-              //         }
-              //       }
-              //     });
-              //   },
-              //   style: ButtonStyle(
-              //     backgroundColor: _switcher[1] == true
-              //         ? MaterialStateProperty.all(const Color(0xff4664FF))
-              //         : MaterialStateProperty.all(const Color(0xffFFFFFF)),
-              //     minimumSize: MaterialStateProperty.all(Size(34.w, 4.h)),
-              //     maximumSize: MaterialStateProperty.all(Size(34.w, 4.h)),
-              //     shape: MaterialStateProperty.all(
-              //       RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(10),
-              //       ),
-              //     ),
-              //   ),
-              //   child: Text(
-              //     'Saved',
-              //     style: _switcher[1] == false
-              //         ? const TextStyle(
-              //             color: Color(0xff9E9E9E),
-              //             fontSize: 12,
-              //             fontWeight: FontWeight.w400)
-              //         : const TextStyle(
-              //             color: Color(0xffFFFFFF),
-              //             fontSize: 12,
-              //             fontWeight: FontWeight.w400),
-              //   ),
-              // ),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    _switcher[1] = true;
+                    for (int j = 0; j < _switcher.length; j++) {
+                      if (j != 1) {
+                        _switcher[j] = false;
+                      }
+                    }
+                  });
+                },
+                style: ButtonStyle(
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  backgroundColor: _switcher[1] == true
+                      ? MaterialStateProperty.all(const Color(0xff4664FF))
+                      : MaterialStateProperty.all(const Color(0xffFFFFFF)),
+                  minimumSize: MaterialStateProperty.all(Size(35.5.w, 40)),
+                  maximumSize: MaterialStateProperty.all(Size(35.5.w, 40)),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                child: Text(
+                  'Saved',
+                  style: _switcher[1] == false
+                      ? const TextStyle(
+                          color: Color(0xff9E9E9E),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400)
+                      : const TextStyle(
+                          color: Color(0xffFFFFFF),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400),
+                ),
+              ),
             ],
           ),
         ),
         SizedBox(width: 3.w),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(),
             borderRadius: BorderRadius.circular(10),
             color: const Color(0xffFFFFFF),
           ),
@@ -116,7 +115,6 @@ class _ButtonsWidgetState extends State<ButtonsWidget> {
               elevation: MaterialStateProperty.all(0),
               backgroundColor:
                   MaterialStateProperty.all(const Color(0xffFFFFFF)),
-              // fixedSize: MaterialStateProperty.all(Size(15.w, 5.h)),
               minimumSize: MaterialStateProperty.all(Size(15.w, 48)),
               maximumSize: MaterialStateProperty.all(Size(15.w, 48)),
               shape: MaterialStateProperty.all(
