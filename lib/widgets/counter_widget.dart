@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasbix/main.dart';
 
 class CounterWidget extends StatefulWidget {
   const CounterWidget({
@@ -25,15 +26,25 @@ class _CounterWidgetState extends State<CounterWidget> {
         ),
         color: Color(0xffFFFFFF),
       ),
-      width: 100.w,
+      width: mapperOrientation(portrait: 91.w, landscape: 208.w),
       height: 25.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           TextButton(
             style: ButtonStyle(
-              minimumSize: MaterialStateProperty.all(Size(35, 4.h)),
-              maximumSize: MaterialStateProperty.all(Size(35, 4.h)),
+              minimumSize: MaterialStateProperty.all(
+                mapperOrientation(
+                  portrait: Size(35, 4.h),
+                  landscape: Size(13.w, 13.w),
+                ),
+              ),
+              maximumSize: MaterialStateProperty.all(
+                mapperOrientation(
+                  portrait: Size(35, 4.h),
+                  landscape: Size(13.w, 13.w),
+                ),
+              ),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -51,42 +62,60 @@ class _CounterWidgetState extends State<CounterWidget> {
               'assets/images/remove.svg',
             ),
           ),
-          Container(
-            width: 39.w,
-            height: 18.h,
-            decoration: const ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10.0),
+          InkWell(
+            onTap: () {
+              setState(() {
+                counter++;
+              });
+            },
+            child: Container(
+              width: mapperOrientation(portrait: 39.w, landscape: 60.w),
+              // 39.w,
+              height: 18.h,
+              decoration: const ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
                 ),
+                color: Color(0xff4664FF),
               ),
-              color: Color(0xff4664FF),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '$counter',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 48,
-                      color: Colors.white),
-                ),
-                const Text(
-                  'Dhikr',
-                  // style: GoogleFonts.gilroy,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      color: Colors.white),
-                ),
-              ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '$counter',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 48,
+                        color: Colors.white),
+                  ),
+                  const Text(
+                    'Dhikr',
+                    // style: GoogleFonts.gilroy,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
             ),
           ),
           TextButton(
             style: ButtonStyle(
-              minimumSize: MaterialStateProperty.all(Size(35, 4.h)),
-              maximumSize: MaterialStateProperty.all(Size(35, 4.h)),
+              minimumSize: MaterialStateProperty.all(
+                mapperOrientation(
+                  portrait: Size(35, 4.h),
+                  landscape: Size(13.w, 13.w),
+                ),
+              ),
+              maximumSize: MaterialStateProperty.all(
+                mapperOrientation(
+                  portrait: Size(35, 4.h),
+                  landscape: Size(13.w, 13.w),
+                ),
+              ),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
