@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/main.dart';
 
@@ -13,7 +14,23 @@ class CounterWidget extends StatefulWidget {
 }
 
 class _CounterWidgetState extends State<CounterWidget> {
-  int counter = 33;
+  int counter = 0;
+
+  final initPreferences = SharedPreferences.getInstance();
+
+  Future<void> getcounter() async {
+    final prefs = await initPreferences;
+    if (prefs.containsKey('counter')) {
+      counter = prefs.getInt('counter')!;
+      setState(() {});
+    } else {}
+  }
+
+  @override
+  void initState() {
+    getcounter();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,24 +70,29 @@ class _CounterWidgetState extends State<CounterWidget> {
               backgroundColor:
                   MaterialStateProperty.all(const Color(0xff778DFF)),
             ),
-            onPressed: () {
-              setState(() {
-                counter--;
-              });
+            onPressed: () async {
+              final prefs = await initPreferences;
+              if (counter > 0) {
+                setState(() {
+                  counter--;
+                });
+                await prefs.setInt('counter', counter);
+              }
             },
             child: SvgPicture.asset(
               'assets/images/remove.svg',
             ),
           ),
           InkWell(
-            onTap: () {
+            onTap: () async {
+              final prefs = await initPreferences;
               setState(() {
                 counter++;
               });
+              prefs.setInt('counter', counter);
             },
             child: Container(
               width: mapperOrientation(portrait: 39.w, landscape: 60.w),
-              // 39.w,
               height: 18.h,
               decoration: const ShapeDecoration(
                 shape: RoundedRectangleBorder(
@@ -124,10 +146,12 @@ class _CounterWidgetState extends State<CounterWidget> {
               backgroundColor:
                   MaterialStateProperty.all(const Color(0xff778DFF)),
             ),
-            onPressed: () {
+            onPressed: () async {
+              final prefs = await initPreferences;
               setState(() {
-                counter = 33;
+                counter = 0;
               });
+              prefs.setInt('counter', counter);
             },
             child: SvgPicture.asset(
               'assets/images/update.svg',

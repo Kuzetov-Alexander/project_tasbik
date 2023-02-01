@@ -32,6 +32,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _switcher = false;
+  void func() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: SingleChildScrollView(
             physics: SizerUtil.orientation == Orientation.portrait
                 ? const NeverScrollableScrollPhysics()
-                : null,
+                : const AlwaysScrollableScrollPhysics(),
             child: Column(
               children: [
                 Row(

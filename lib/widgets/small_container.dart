@@ -41,16 +41,17 @@ class _SmallContainerState extends State<SmallContainer> {
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(width: 8.w),
-          SizedBox(
-            width: mapperOrientation(portrait: 30.w, landscape: 97.w),
-            child: const Text(
+          SizedBox(width: 4.w),
+          const Expanded(
+            child: Text(
               'Name of the file Dhikr',
+              textAlign: TextAlign.start,
               maxLines: 3,
               style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 12,
-                  color: Colors.black),
+                fontWeight: FontWeight.w400,
+                fontSize: 12,
+                color: Colors.black,
+              ),
             ),
           ),
           SizedBox(width: 2.5.w),
