@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/widgets/counter_widget.dart';
-import 'package:tasbix/widgets/small_container.dart';
+import 'package:tasbix/widgets/generate_class.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(DhikrAdapter());
+
   runApp(const MyApp());
 }
 
@@ -32,6 +40,39 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _switcher = false;
+
+  final _titleDhikrController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleDhikrController.dispose();
+    super.dispose();
+  }
+
+  Future<Widget> getObjectFromHive() async {
+    var box = await Hive.openBox('myBox');
+    if (box.keys.length == 0 || box.keys.length == null) {
+      return const Text('no basa');
+    }
+    var listSaved = box.keys.toList();
+
+    return SizedBox(
+      height: 100,
+      child: ListView.builder(
+        itemCount: listSaved.length,
+        itemBuilder: (context, index) {
+          var dhikr = box.get(listSaved[index]) as Dhikr;
+
+          return Row(
+            children: [
+              Text(dhikr.title),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
   void func() {
     setState(() {});
   }
@@ -219,24 +260,64 @@ class _MyHomePageState extends State<MyHomePage> {
                                 'Save Dhikr',
                                 textAlign: TextAlign.center,
                               ),
-                              content: const Text(
-                                'Confirm action?',
-                                textAlign: TextAlign.center,
+                              content: TextFormField(
+                                controller: _titleDhikrController,
+                                decoration: const InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(24),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors.amber,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(24),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors.grey,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  labelText: 'Title Dhikr',
+                                ),
                               ),
                               actions: [
                                 FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
+                                  onPressed: () async {
+                                    var box = await Hive.openBox('myBox');
+                                    var id =
+                                        DateTime.now().millisecondsSinceEpoch;
+                                    final prefs =
+                                        await SharedPreferences.getInstance();
+                                    var counter = prefs.containsKey('counter')
+                                        ? prefs.getInt('counter')!
+                                        : 0;
+                                    box.put(
+                                        id.toString(),
+                                        Dhikr(
+                                            title: _titleDhikrController.text,
+                                            counter: counter,
+                                            dateTime: DateTime.now()));
+
+                                    void bbb() {
+                                      Navigator.pop(context);
+                                      setState(() {});
+                                    }
+
+                                    bbb();
                                   },
                                   backgroundColor: const Color(0xff4664FF),
-                                  child: const Text('Yes'),
+                                  child: const Text('Save'),
                                 ),
                                 FloatingActionButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
                                   backgroundColor: const Color(0xff4664FF),
-                                  child: const Text('No'),
+                                  child: const Text('Back'),
                                 )
                               ],
                             ),
@@ -286,17 +367,27 @@ class _MyHomePageState extends State<MyHomePage> {
                         SizedBox(
                             height: mapperOrientation(
                                 portrait: 3.h, landscape: 1.h)),
-                        const SmallContainer(
-                          number: 14,
-                        ),
-                        SizedBox(height: 1.h),
-                        const SmallContainer(
-                          number: 9,
-                        ),
-                        SizedBox(height: 1.h),
-                        const SmallContainer(
-                          number: 15,
-                        ),
+                        FutureBuilder(
+                          future: getObjectFromHive(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return snapshot.data!;
+                            }
+                            return const Text('asd');
+                          },
+                        )
+
+                        // const SmallContainer(
+                        //   number: 14,
+                        // ),
+                        // SizedBox(height: 1.h),
+                        // const SmallContainer(
+                        //   number: 9,
+                        // ),
+                        // SizedBox(height: 1.h),
+                        // const SmallContainer(
+                        //   number: 15,
+                        // ),
                       ],
                     ),
                   ),
