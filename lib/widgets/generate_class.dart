@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'generate_class.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 50)
 class Dhikr {
   Dhikr({required this.title, required this.counter, required this.dateTime});
 

@@ -8,7 +8,7 @@ part of 'generate_class.dart';
 
 class DhikrAdapter extends TypeAdapter<Dhikr> {
   @override
-  final int typeId = 0;
+  final int typeId = 50;
 
   @override
   Dhikr read(BinaryReader reader) {
