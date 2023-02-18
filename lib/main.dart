@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:sizer/sizer.dart';
+import 'package:tasbix/features/method_orientation.dart';
 import 'package:tasbix/widgets/counter_widget.dart';
 import 'package:tasbix/widgets/generate_class.dart';
 
@@ -119,8 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {},
                   icon: SvgPicture.asset(
                     'assets/images/setting.svg',
-                    width: 5.w,
-                    height: 1.5.w,
+                    height: 1.3.w,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -131,10 +131,6 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ),
     );
-  }
-
-  void func() {
-    setState(() {});
   }
 
   @override
@@ -447,11 +443,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-}
-
-T mapperOrientation<T>({required T portrait, required T landscape}) {
-  if (SizerUtil.orientation == Orientation.portrait) {
-    return portrait;
-  }
-  return landscape;
 }
