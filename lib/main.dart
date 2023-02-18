@@ -200,9 +200,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                       fontWeight: FontWeight.w400),
                             ),
                           ),
-                          OrientationBuilder(builder: (context, orientation) {
-                            return const SizedBox(width: 4);
-                          }),
                           TextButton(
                             onPressed: () {
                               if (_switcher == false) {
@@ -286,107 +283,103 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 _switcher ? const SizedBox() : const CounterWidget(),
                 _switcher ? const SizedBox() : SizedBox(height: 2.h),
-                _switcher
-                    ? const SizedBox()
-                    : TextButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              const Color(0xffFFFFFF)),
-                          fixedSize: MaterialStateProperty.all(Size(
-                              mapperOrientation(
-                                  portrait: 91.w, landscape: 208.w),
-                              5.5.h)),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                TextButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(const Color(0xffFFFFFF)),
+                    fixedSize: MaterialStateProperty.all(Size(
+                        mapperOrientation(portrait: 91.w, landscape: 208.w),
+                        5.5.h)),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    showDialog<void>(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        alignment: Alignment.center,
+                        actionsAlignment: MainAxisAlignment.spaceEvenly,
+                        elevation: 24,
+                        title: const Text(
+                          'Save Dhikr',
+                          textAlign: TextAlign.center,
+                        ),
+                        content: TextFormField(
+                          controller: _titleDhikrController,
+                          decoration: const InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(24),
+                              ),
+                              borderSide: BorderSide(
+                                color: Colors.amber,
+                                width: 2,
+                              ),
                             ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(24),
+                              ),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2,
+                              ),
+                            ),
+                            labelText: 'Title Dhikr',
                           ),
                         ),
-                        onPressed: () {
-                          showDialog<void>(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30)),
-                              alignment: Alignment.center,
-                              actionsAlignment: MainAxisAlignment.spaceEvenly,
-                              elevation: 24,
-                              title: const Text(
-                                'Save Dhikr',
-                                textAlign: TextAlign.center,
-                              ),
-                              content: TextFormField(
-                                controller: _titleDhikrController,
-                                decoration: const InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(24),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: Colors.amber,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(24),
-                                    ),
-                                    borderSide: BorderSide(
-                                      color: Colors.grey,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  labelText: 'Title Dhikr',
-                                ),
-                              ),
-                              actions: [
-                                FloatingActionButton(
-                                  onPressed: () async {
-                                    var box = await Hive.openBox('myBox');
-                                    var id =
-                                        DateTime.now().millisecondsSinceEpoch;
-                                    final prefs =
-                                        await SharedPreferences.getInstance();
-                                    var counter = prefs.containsKey('counter')
-                                        ? prefs.getInt('counter')!
-                                        : 0;
-                                    box.put(
-                                        id.toString(),
-                                        Dhikr(
-                                            title: _titleDhikrController.text,
-                                            counter: counter,
-                                            dateTime: DateTime.now()));
+                        actions: [
+                          FloatingActionButton(
+                            onPressed: () async {
+                              var box = await Hive.openBox('myBox');
+                              var id = DateTime.now().millisecondsSinceEpoch;
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              var counter = prefs.containsKey('counter')
+                                  ? prefs.getInt('counter')!
+                                  : 0;
+                              box.put(
+                                  id.toString(),
+                                  Dhikr(
+                                      title: _titleDhikrController.text,
+                                      counter: counter,
+                                      dateTime: DateTime.now()));
 
-                                    void bbb() {
-                                      Navigator.pop(context);
-                                      setState(() {});
-                                    }
+                              void bbb() {
+                                Navigator.pop(context);
+                                setState(() {});
+                              }
 
-                                    bbb();
-                                  },
-                                  backgroundColor: const Color(0xff4664FF),
-                                  child: const Text('Save'),
-                                ),
-                                FloatingActionButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  backgroundColor: const Color(0xff4664FF),
-                                  child: const Text('Back'),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'Save Dhikr',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
-                              color: Color(0xff4664FF)),
-                        ),
+                              bbb();
+                            },
+                            backgroundColor: const Color(0xff4664FF),
+                            child: const Text('Save'),
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            backgroundColor: const Color(0xff4664FF),
+                            child: const Text('Back'),
+                          )
+                        ],
                       ),
+                    );
+                  },
+                  child: const Text(
+                    'Save Dhikr',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Color(0xff4664FF)),
+                  ),
+                ),
                 _switcher ? const SizedBox() : SizedBox(height: 2.h),
                 Container(
                   width: mapperOrientation(portrait: 91.w, landscape: 208.w),
