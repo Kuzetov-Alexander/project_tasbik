@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-import 'package:tasbix/main.dart';
+import 'package:tasbix/widgets/myhome_page.dart';
 
 class CounterWidget extends StatefulWidget {
   const CounterWidget({
@@ -114,7 +114,6 @@ class _CounterWidgetState extends State<CounterWidget> {
                   ),
                   const Text(
                     'Dhikr',
-                    // style: GoogleFonts.gilroy,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
