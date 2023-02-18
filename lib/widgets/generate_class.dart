@@ -15,9 +15,7 @@ class Dhikr {
   @HiveField(2)
   DateTime dateTime;
 
-  void updateDataDhikr() {
-    
-  }
+  void updateDataDhikr() {}
 
   void removeDhikr() {}
 }

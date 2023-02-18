@@ -7,7 +7,6 @@ import 'package:tasbix/widgets/myhome_page.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-
   Hive.registerAdapter(DhikrAdapter());
 
   runApp(const MyApp());
@@ -27,3 +26,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
