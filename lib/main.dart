@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'package:sizer/sizer.dart';
-import 'package:tasbix/widgets/big_container.dart';
-import 'package:tasbix/widgets/button_list.dart';
-import 'package:tasbix/widgets/button_save_dhikr.dart';
-import 'package:tasbix/widgets/counter_widget.dart';
-import 'package:tasbix/widgets/generate_class.dart';
+import 'package:tasbix/widgets/import_file.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,9 +35,13 @@ class MyHomePage extends StatefulWidget {
 
 class MyHomePageState extends State<MyHomePage> {
   bool switcher = false;
+  Key _smallContainerKey = UniqueKey();
 
   refreshState() {
-    setState(() {});
+    print('refresh state HomePage');
+    setState(() {
+      _smallContainerKey = UniqueKey();
+    });
   }
 
   @override
@@ -69,6 +68,7 @@ class MyHomePageState extends State<MyHomePage> {
                 SizedBox(height: 2.h),
                 BigContainer(
                   switcher: switcher,
+                  smallContainerKey: _smallContainerKey,
                 ),
               ],
             ),

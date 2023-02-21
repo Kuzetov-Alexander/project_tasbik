@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
-import 'package:tasbix/widgets/small_container.dart';
+import 'import_file.dart';
 
 class BigContainer extends StatefulWidget {
-  const BigContainer({super.key, required this.switcher});
+  const BigContainer(
+      {super.key, required this.switcher, required this.smallContainerKey});
   final bool switcher;
+  final Key smallContainerKey;
 
   @override
   State<BigContainer> createState() => _BigContainerState();
@@ -45,7 +47,7 @@ class _BigContainerState extends State<BigContainer> {
               ],
             ),
             SizedBox(height: mapperOrientation(portrait: 3.h, landscape: 1.h)),
-            const SmallContainer(),
+            SmallContainer(key: widget.smallContainerKey),
           ],
         ),
       ),
