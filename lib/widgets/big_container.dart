@@ -19,7 +19,7 @@ class _BigContainerState extends State<BigContainer> {
     return Container(
       width: mapperOrientation(portrait: 91.w, landscape: 208.w),
       height: widget.switcher
-          ? mapperOrientation(portrait: 80.3.h, landscape: 64.w)
+          ? mapperOrientation(portrait: 72.5.h, landscape: 64.w)
           : mapperOrientation(portrait: 45.5.h, landscape: 64.w),
       decoration: const ShapeDecoration(
         shape: RoundedRectangleBorder(

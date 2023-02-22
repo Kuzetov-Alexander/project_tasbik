@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
 import 'import_file.dart';
@@ -15,8 +14,7 @@ class SmallContainer extends StatefulWidget {
 
 class SmallContainerState extends State<SmallContainer> {
   final _titleDhikrController = TextEditingController();
-
-  int _counter = 0;
+  final _counterDhikrController = TextEditingController();
 
   @override
   void initState() {
@@ -50,7 +48,9 @@ class SmallContainerState extends State<SmallContainer> {
             key: UniqueKey(),
             background: Container(color: Colors.red),
             onDismissed: (direction) {
-              box.deleteAt(index);
+              setState(() {
+                box.deleteAt(index);
+              });
             },
             child: Container(
               decoration: const ShapeDecoration(
@@ -65,7 +65,6 @@ class SmallContainerState extends State<SmallContainer> {
               height: 6.h,
               child: Row(
                 children: [
-                  // SizedBox(width: 5.5.w),
                   SizedBox(
                     width: 7.w,
                     child: Text(
@@ -119,37 +118,28 @@ class SmallContainerState extends State<SmallContainer> {
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              InkWell(
-                                onTap: () async {
-                                  final prefs =
-                                      await SharedPreferences.getInstance();
-                                  _counter++;
-                                  prefs.setInt('counter', _counter);
-                                },
-                                child: Container(
-                                  width: mapperOrientation(
-                                      portrait: 59.w, landscape: 63.w),
-                                  height: 15.w,
-                                  decoration: const ShapeDecoration(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(24.0),
-                                      ),
+                              TextFormField(
+                                controller: _counterDhikrController,
+                                decoration: const InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(24),
                                     ),
-                                    color: Color(0xff4664FF),
+                                    borderSide: BorderSide(
+                                      color: Colors.amber,
+                                      width: 2,
+                                    ),
                                   ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        '$_counter',
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 30,
-                                            color: Colors.white),
-                                      ),
-                                    ],
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(24),
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors.grey,
+                                      width: 2,
+                                    ),
                                   ),
+                                  labelText: 'Counter Dhikr',
                                 ),
                               ),
                               SizedBox(height: 2.w),
@@ -185,7 +175,8 @@ class SmallContainerState extends State<SmallContainer> {
                                 void editCounter() {
                                   final dhikrFromHive = box
                                       .get(box.keys.toList()[index]) as Dhikr;
-                                  dhikrFromHive.counter = _counter;
+                                  dhikrFromHive.counter =
+                                      int.parse(_counterDhikrController.text);
                                   dhikrFromHive.title =
                                       _titleDhikrController.text;
                                   dhikrFromHive.dateTime = DateTime.now();
@@ -193,19 +184,14 @@ class SmallContainerState extends State<SmallContainer> {
 
                                 editCounter();
 
-                                final prefs =
-                                    await SharedPreferences.getInstance();
-                                var counter = prefs.containsKey('counter')
-                                    ? prefs.getInt('counter')!
-                                    : 0;
                                 box.put(
                                     box.keys.toList()[index].toString(),
                                     Dhikr(
                                         title: _titleDhikrController.text,
-                                        counter: counter,
+                                        counter: int.parse(
+                                            _counterDhikrController.text),
                                         dateTime: DateTime.now()));
-                                var res = box.keys;
-                                print('res');
+
                                 setState(() {});
                                 Navigator.pop(context);
                               },
@@ -247,7 +233,7 @@ class SmallContainerState extends State<SmallContainer> {
         if (snapshot.hasData) {
           return snapshot.data!;
         }
-        return const Text('asd');
+        return const Text('non');
       },
     );
   }
