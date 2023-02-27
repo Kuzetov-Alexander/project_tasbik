@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/widgets/import_file.dart';
+import 'package:tasbix/widgets/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(DhikrAdapter());
+  if (!Hive.isAdapterRegistered(50)) {
+    Hive.registerAdapter(DhikrAdapter());
+  }
 
   runApp(const MyApp());
 }
@@ -18,8 +22,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) {
-        return const MaterialApp(
-          home: MyHomePage(),
+        return MaterialApp(
+          home: ChangeNotifierProvider(
+            create: (context) => MyFirstProvider(),
+            child: const MyHomePage(),
+          ),
         );
       },
     );

@@ -1,36 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
+import 'package:tasbix/widgets/provider.dart';
 
-class CounterWidget extends StatefulWidget {
+class CounterWidget extends StatelessWidget {
   const CounterWidget({
     super.key,
   });
-
-  @override
-  State<CounterWidget> createState() => _CounterWidgetState();
-}
-
-class _CounterWidgetState extends State<CounterWidget> {
-  int counter = 0;
-
-  final initPreferences = SharedPreferences.getInstance();
-
-  Future<void> getcounter() async {
-    final prefs = await initPreferences;
-    if (prefs.containsKey('counter')) {
-      counter = prefs.getInt('counter')!;
-      setState(() {});
-    } else {}
-  }
-
-  @override
-  void initState() {
-    getcounter();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +49,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                   MaterialStateProperty.all(const Color(0xff778DFF)),
             ),
             onPressed: () async {
-              final prefs = await initPreferences;
-              if (counter > 0) {
-                setState(() {
-                  counter--;
-                });
-                await prefs.setInt('counter', counter);
-              }
+              context.read<MyFirstProvider>().decrement();
             },
             child: SvgPicture.asset(
               'assets/images/remove.svg',
@@ -85,11 +57,7 @@ class _CounterWidgetState extends State<CounterWidget> {
           ),
           InkWell(
             onTap: () async {
-              final prefs = await initPreferences;
-              setState(() {
-                counter++;
-              });
-              prefs.setInt('counter', counter);
+              context.read<MyFirstProvider>().increment();
             },
             child: Container(
               width: mapperOrientation(portrait: 39.w, landscape: 60.w),
@@ -106,16 +74,16 @@ class _CounterWidgetState extends State<CounterWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '$counter',
+                    '${context.watch<MyFirstProvider>().counter}',
                     style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 48,
                         color: Colors.white),
                   ),
-                  const Text(
-                    'Dhikr',
+                  Text(
+                    'Dhikr ${context.read<MyFirstProvider>().counter}',
                     // style: GoogleFonts.gilroy,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12,
                         color: Colors.white),
@@ -147,11 +115,7 @@ class _CounterWidgetState extends State<CounterWidget> {
                   MaterialStateProperty.all(const Color(0xff778DFF)),
             ),
             onPressed: () async {
-              final prefs = await initPreferences;
-              setState(() {
-                counter = 0;
-              });
-              prefs.setInt('counter', counter);
+              context.read<MyFirstProvider>().reset();
             },
             child: SvgPicture.asset(
               'assets/images/update.svg',

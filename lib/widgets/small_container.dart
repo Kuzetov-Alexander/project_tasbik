@@ -233,7 +233,7 @@ class SmallContainerState extends State<SmallContainer> {
         if (snapshot.hasData) {
           return snapshot.data!;
         }
-        return const Text('non');
+        return const CircularProgressIndicator();
       },
     );
   }
