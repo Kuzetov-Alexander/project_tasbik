@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
-import 'package:tasbix/main.dart';
+import 'package:tasbix/widgets/provider.dart';
 
 class ButtonsList extends StatefulWidget {
   const ButtonsList({super.key});
@@ -14,44 +15,29 @@ class ButtonsList extends StatefulWidget {
 class _ButtonsListState extends State<ButtonsList> {
   @override
   Widget build(BuildContext context) {
+    debugPrint('--------new build ButtonsList');
     return Row(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 1.w),
+          padding: EdgeInsets.symmetric(vertical: 1.w, horizontal: 1.w),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: const Color(0xffFFFFFF),
           ),
           child: SizedBox(
-            width: mapperOrientation(portrait: 73.4.w, landscape: 190.5.w),
+            width: mapperOrientation(portrait: 74.3.w, landscape: 190.5.w),
             child: Row(
               children: [
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      if (context
-                          .findAncestorStateOfType<MyHomePageState>()!
-                          .switcher) {
-                        setState(() {
-                          context
-                                  .findAncestorStateOfType<MyHomePageState>()!
-                                  .switcher =
-                              !context
-                                  .findAncestorStateOfType<MyHomePageState>()!
-                                  .switcher;
-
-                          context
-                              .findAncestorStateOfType<MyHomePageState>()!
-                              .refreshState();
-                        });
-                      }
+                      setState(() {
+                        context.read<IntProvider>().toSwitch();
+                      });
                     },
                     style: ButtonStyle(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: context
-                                  .findAncestorStateOfType<MyHomePageState>()!
-                                  .switcher ==
-                              false
+                      backgroundColor: context.read<IntProvider>().switcher
                           ? MaterialStateProperty.all(const Color(0xff4664FF))
                           : MaterialStateProperty.all(const Color(0xffFFFFFF)),
                       shape: MaterialStateProperty.all(
@@ -62,16 +48,14 @@ class _ButtonsListState extends State<ButtonsList> {
                     ),
                     child: Text(
                       'Activity',
-                      style: context
-                              .findAncestorStateOfType<MyHomePageState>()!
-                              .switcher
+                      style: context.read<IntProvider>().switcher == false
                           ? const TextStyle(
                               color: Color(0xff9E9E9E),
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.w400)
                           : const TextStyle(
                               color: Color(0xffFFFFFF),
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.w400),
                     ),
                   ),
@@ -80,28 +64,14 @@ class _ButtonsListState extends State<ButtonsList> {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      if (context
-                              .findAncestorStateOfType<MyHomePageState>()!
-                              .switcher ==
-                          false) {
-                        setState(() {
-                          context
-                                  .findAncestorStateOfType<MyHomePageState>()!
-                                  .switcher =
-                              !context
-                                  .findAncestorStateOfType<MyHomePageState>()!
-                                  .switcher;
-                          context
-                              .findAncestorStateOfType<MyHomePageState>()!
-                              .refreshState();
-                        });
-                      }
+                      setState(() {
+                        context.read<IntProvider>().toSwitch();
+                      });
                     },
                     style: ButtonStyle(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: context
-                              .findAncestorStateOfType<MyHomePageState>()!
-                              .switcher
+                      backgroundColor: context.read<IntProvider>().switcher ==
+                              false
                           ? MaterialStateProperty.all(const Color(0xff4664FF))
                           : MaterialStateProperty.all(const Color(0xffFFFFFF)),
                       shape: MaterialStateProperty.all(
@@ -112,17 +82,14 @@ class _ButtonsListState extends State<ButtonsList> {
                     ),
                     child: Text(
                       'Saved',
-                      style: context
-                                  .findAncestorStateOfType<MyHomePageState>()!
-                                  .switcher ==
-                              false
+                      style: context.read<IntProvider>().switcher
                           ? const TextStyle(
                               color: Color(0xff9E9E9E),
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.w400)
                           : const TextStyle(
                               color: Color(0xffFFFFFF),
-                              fontSize: 12,
+                              fontSize: 14,
                               fontWeight: FontWeight.w400),
                     ),
                   ),
@@ -133,6 +100,7 @@ class _ButtonsListState extends State<ButtonsList> {
         ),
         SizedBox(width: 3.w),
         Container(
+          height: 44,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: const Color(0xffFFFFFF),

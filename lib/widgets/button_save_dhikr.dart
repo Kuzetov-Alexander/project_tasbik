@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
-import 'package:tasbix/main.dart';
-import 'import_file.dart';
+import 'package:tasbix/widgets/import_file.dart';
 
 class ButtonSaveDhikr extends StatefulWidget {
   const ButtonSaveDhikr({super.key});
@@ -14,91 +11,18 @@ class ButtonSaveDhikr extends StatefulWidget {
 }
 
 class _ButtonSaveDhikrState extends State<ButtonSaveDhikr> {
-  final _titleDhikrController = TextEditingController();
-
-  @override
-  void dispose() {
-    _titleDhikrController.dispose();
-    super.dispose();
-  }
-
-  void funcOnPressedSave(BuildContext myContext) {
+  ////////////////////////////////////////////
+  void funcOnPressedSave(BuildContext context) {
     showDialog<void>(
       barrierDismissible: false,
-      context: myContext,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        alignment: Alignment.center,
-        actionsAlignment: MainAxisAlignment.spaceEvenly,
-        elevation: 24,
-        title: const Text(
-          'Save Dhikr',
-          textAlign: TextAlign.center,
-        ),
-        content: TextFormField(
-          controller: _titleDhikrController,
-          decoration: const InputDecoration(
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(24),
-              ),
-              borderSide: BorderSide(
-                color: Colors.amber,
-                width: 2,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(24),
-              ),
-              borderSide: BorderSide(
-                color: Colors.grey,
-                width: 2,
-              ),
-            ),
-            labelText: 'Title Dhikr',
-          ),
-        ),
-        actions: [
-          FloatingActionButton(
-            onPressed: () async {
-              var box = await Hive.openBox('myBox');
-              var id = DateTime.now().millisecondsSinceEpoch;
-              final prefs = await SharedPreferences.getInstance();
-              var counter =
-                  prefs.containsKey('counter') ? prefs.getInt('counter')! : 0;
-              box.put(
-                  id.toString(),
-                  Dhikr(
-                      title: _titleDhikrController.text,
-                      counter: counter,
-                      dateTime: DateTime.now()));
-
-              void refresh() {
-                context
-                    .findAncestorStateOfType<MyHomePageState>()!
-                    .refreshState();
-                Navigator.pop(context);
-              } 
-              refresh();
-            },
-            backgroundColor: const Color(0xff4664FF),
-            child: const Text('Save'),
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            backgroundColor: const Color(0xff4664FF),
-            child: const Text('Back'),
-          )
-        ],
-      ),
+      context: context,
+      builder: (_) => const SaveAlertDialog(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('--------new build ButtonSaveDhikr');
     return TextButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(const Color(0xffFFFFFF)),
