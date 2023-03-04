@@ -9,11 +9,22 @@ class IntProvider extends ChangeNotifier {
 
   bool switcher = true;
 
+  late Box<Dhikr> box;
+
   IntProvider() {
     getCounterFromPrefs();
   }
+
+  void deleteDhikr(int index) {
+    box.deleteAt(index);
+    getObjectFromHive();
+    notifyListeners();
+  }
+
   Future<void> getCounterFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();
+    box = await Hive.openBox('myBox');
+    listDhikr = box.values.toList();
     prefs.containsKey('counter') ? counter = prefs.getInt('counter')! : null;
     notifyListeners();
   }
@@ -25,17 +36,19 @@ class IntProvider extends ChangeNotifier {
     getCounterFromPrefs();
     box.put(id.toString(),
         Dhikr(title: title, counter: counter, dateTime: DateTime.now()));
+    notifyListeners();
   }
 
   Future<List<Dhikr>> getObjectFromHive() async {
-    Box<Dhikr> box = await Hive.openBox('myBox');
     listDhikr = box.values.toList();
+    notifyListeners();
     return listDhikr;
   }
 
   Future<void> saveCounter() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setInt('counter', counter);
+    notifyListeners();
   }
 
   void increment() {

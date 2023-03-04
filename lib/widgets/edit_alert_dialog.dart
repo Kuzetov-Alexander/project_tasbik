@@ -17,9 +17,17 @@ class EditAlertDialog extends StatefulWidget {
 class _EditAlertDialogState extends State<EditAlertDialog> {
   final _titleEditController = TextEditingController();
   final _counterEditController = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleEditController.dispose();
+    _counterEditController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Dhikr dhikr = context.watch<IntProvider>().listDhikr[widget.index];
+    Dhikr dhikr = context.read<IntProvider>().listDhikr[widget.index];
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
       alignment: Alignment.center,
@@ -98,7 +106,8 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
                     counter: int.parse(_counterEditController.text),
                     dateTime: DateTime.now()));
 
-            setState(() {});
+            context.read<IntProvider>().getObjectFromHive();
+           
             Navigator.pop(context);
           },
           backgroundColor: const Color(0xff4664FF),

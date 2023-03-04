@@ -15,6 +15,7 @@ class ButtonsList extends StatefulWidget {
 class _ButtonsListState extends State<ButtonsList> {
   @override
   Widget build(BuildContext context) {
+    final myProvider = context.read<IntProvider>();
     debugPrint('--------new build ButtonsList');
     return Row(
       children: [
@@ -32,12 +33,12 @@ class _ButtonsListState extends State<ButtonsList> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                        context.read<IntProvider>().toSwitch();
+                        myProvider.toSwitch();
                       });
                     },
                     style: ButtonStyle(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: context.read<IntProvider>().switcher
+                      backgroundColor: context.watch<IntProvider>().switcher
                           ? MaterialStateProperty.all(const Color(0xff4664FF))
                           : MaterialStateProperty.all(const Color(0xffFFFFFF)),
                       shape: MaterialStateProperty.all(
@@ -47,16 +48,13 @@ class _ButtonsListState extends State<ButtonsList> {
                       ),
                     ),
                     child: Text(
+                      
                       'Activity',
-                      style: context.read<IntProvider>().switcher == false
-                          ? const TextStyle(
-                              color: Color(0xff9E9E9E),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400)
-                          : const TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
+                      style: TextStyle(
+                          color: myProvider.switcher == false
+                              ? const Color(0xff9E9E9E)
+                              : const Color(0xffFFFFFF),
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
                 ),
@@ -65,13 +63,12 @@ class _ButtonsListState extends State<ButtonsList> {
                   child: TextButton(
                     onPressed: () {
                       setState(() {
-                        context.read<IntProvider>().toSwitch();
+                        myProvider.toSwitch();
                       });
                     },
                     style: ButtonStyle(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      backgroundColor: context.read<IntProvider>().switcher ==
-                              false
+                      backgroundColor: myProvider.switcher == false
                           ? MaterialStateProperty.all(const Color(0xff4664FF))
                           : MaterialStateProperty.all(const Color(0xffFFFFFF)),
                       shape: MaterialStateProperty.all(
@@ -80,18 +77,12 @@ class _ButtonsListState extends State<ButtonsList> {
                         ),
                       ),
                     ),
-                    child: Text(
-                      'Saved',
-                      style: context.read<IntProvider>().switcher
-                          ? const TextStyle(
-                              color: Color(0xff9E9E9E),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400)
-                          : const TextStyle(
-                              color: Color(0xffFFFFFF),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400),
-                    ),
+                    child: Text('Saved',
+                        style: TextStyle(
+                            color: myProvider.switcher
+                                ? const Color(0xff9E9E9E)
+                                : const Color(0xffFFFFFF),
+                            fontWeight: FontWeight.w400)),
                   ),
                 ),
               ],

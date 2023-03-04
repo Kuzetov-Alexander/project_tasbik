@@ -22,15 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) {
-        return MaterialApp(
-          home: MultiProvider(
-            providers: [
-              ChangeNotifierProvider(
-                create: (_) => IntProvider(),
-              ),
-            ],
-            child: const MyHomePage(),
-          ),
+        return ChangeNotifierProvider(
+          create: (_) => IntProvider(),
+          child: const MaterialApp(home: MyHomePage()),
         );
       },
     );
