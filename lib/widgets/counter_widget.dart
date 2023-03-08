@@ -12,6 +12,7 @@ class CounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final myProvider = context.read<IntProvider>();
     debugPrint('--------new build CounterWidget');
     return Container(
       decoration: const ShapeDecoration(
@@ -50,7 +51,7 @@ class CounterWidget extends StatelessWidget {
                   MaterialStateProperty.all(const Color(0xff778DFF)),
             ),
             onPressed: () async {
-              context.read<IntProvider>().decrement();
+              myProvider.decrement();
             },
             child: SvgPicture.asset(
               'assets/images/remove.svg',
@@ -58,7 +59,7 @@ class CounterWidget extends StatelessWidget {
           ),
           InkWell(
             onTap: () async {
-              context.read<IntProvider>().increment();
+              myProvider.increment();
             },
             child: Container(
               width: mapperOrientation(portrait: 39.w, landscape: 60.w),
@@ -115,7 +116,7 @@ class CounterWidget extends StatelessWidget {
                   MaterialStateProperty.all(const Color(0xff778DFF)),
             ),
             onPressed: () async {
-              context.read<IntProvider>().reset();
+              myProvider.reset();
             },
             child: SvgPicture.asset(
               'assets/images/update.svg',

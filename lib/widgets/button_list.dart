@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 import 'package:tasbix/widgets/provider.dart';
 
 class ButtonsList extends StatefulWidget {
@@ -48,8 +50,7 @@ class _ButtonsListState extends State<ButtonsList> {
                       ),
                     ),
                     child: Text(
-                      
-                      'Activity',
+                      LocaleKeys.activity.tr(),
                       style: TextStyle(
                           color: myProvider.switcher == false
                               ? const Color(0xff9E9E9E)
@@ -77,7 +78,7 @@ class _ButtonsListState extends State<ButtonsList> {
                         ),
                       ),
                     ),
-                    child: Text('Saved',
+                    child: Text(LocaleKeys.saved.tr(),
                         style: TextStyle(
                             color: myProvider.switcher
                                 ? const Color(0xff9E9E9E)
@@ -111,7 +112,14 @@ class _ButtonsListState extends State<ButtonsList> {
                 ),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              if (context.locale == const Locale('ru')) {
+                context.setLocale(const Locale('en'));
+              } else {
+                context.setLocale(const Locale('ru'));
+              }
+              context.findAncestorStateOfType()?.setState(() {});
+            },
             icon: SvgPicture.asset(
               'assets/images/menu.svg',
             ),

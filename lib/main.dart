@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasbix/generated/codegen_loader.g.dart';
 import 'package:tasbix/widgets/import_file.dart';
 import 'package:tasbix/widgets/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,8 +13,22 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(50)) {
     Hive.registerAdapter(DhikrAdapter());
   }
+  await EasyLocalization.ensureInitialized();
 
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ru'),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('ru'),
+      startLocale: const Locale('ru'),
+      saveLocale: false,
+      assetLoader: const CodegenLoader(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +40,11 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) {
         return ChangeNotifierProvider(
           create: (_) => IntProvider(),
-          child: const MaterialApp(home: MyHomePage()),
+          child: MaterialApp(
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              home: const MyHomePage()),
         );
       },
     );
@@ -43,8 +63,7 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     debugPrint('--------new build MyHomePage');
     return Scaffold(
-      backgroundColor: Colors.amber,
-      // const Color(0xffE5E5E5),
+      backgroundColor: const Color(0xffE5E5E5),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 5.w, horizontal: 2.h),

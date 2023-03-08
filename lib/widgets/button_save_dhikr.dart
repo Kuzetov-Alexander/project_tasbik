@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 import 'package:tasbix/widgets/import_file.dart';
 
 class ButtonSaveDhikr extends StatefulWidget {
@@ -37,9 +39,9 @@ class _ButtonSaveDhikrState extends State<ButtonSaveDhikr> {
       onPressed: () {
         funcOnPressedSave(context);
       },
-      child: const Text(
-        'Save Dhikr',
-        style: TextStyle(
+      child: Text(
+        LocaleKeys.saveDhikr.tr(),
+        style: const TextStyle(
             fontWeight: FontWeight.w400,
             fontSize: 14,
             color: Color(0xff4664FF)),

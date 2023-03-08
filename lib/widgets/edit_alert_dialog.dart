@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 import 'package:tasbix/widgets/import_file.dart';
 import 'package:tasbix/widgets/provider.dart';
 
@@ -33,8 +35,8 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
       alignment: Alignment.center,
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       elevation: 24,
-      title: const Text(
-        'Edit counter and Title',
+      title: Text(
+        LocaleKeys.editTitleDhikr.tr(),
         textAlign: TextAlign.center,
       ),
       content: Column(
@@ -42,8 +44,8 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
         children: [
           TextFormField(
             controller: _counterEditController,
-            decoration: const InputDecoration(
-              focusedBorder: OutlineInputBorder(
+            decoration: InputDecoration(
+              focusedBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(24),
                 ),
@@ -52,7 +54,7 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
                   width: 2,
                 ),
               ),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(24),
                 ),
@@ -61,14 +63,14 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
                   width: 2,
                 ),
               ),
-              labelText: 'Counter Dhikr',
+              labelText: LocaleKeys.counterDhikr.tr(),
             ),
           ),
           SizedBox(height: 2.w),
           TextFormField(
             controller: _titleEditController,
-            decoration: const InputDecoration(
-              focusedBorder: OutlineInputBorder(
+            decoration: InputDecoration(
+              focusedBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(24),
                 ),
@@ -77,7 +79,7 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
                   width: 2,
                 ),
               ),
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(24),
                 ),
@@ -86,7 +88,7 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
                   width: 2,
                 ),
               ),
-              labelText: 'Title Dhikr',
+              labelText: LocaleKeys.titleDhikr.tr(),
             ),
           ),
         ],
@@ -107,18 +109,18 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
                     dateTime: DateTime.now()));
 
             context.read<IntProvider>().getObjectFromHive();
-           
+
             Navigator.pop(context);
           },
           backgroundColor: const Color(0xff4664FF),
-          child: const Text('Save'),
+          child: Text(LocaleKeys.saveButton.tr()),
         ),
         FloatingActionButton(
           onPressed: () {
             Navigator.pop(context);
           },
           backgroundColor: const Color(0xff4664FF),
-          child: const Text('Back'),
+          child: Text(LocaleKeys.backButton.tr()),
         )
       ],
     );

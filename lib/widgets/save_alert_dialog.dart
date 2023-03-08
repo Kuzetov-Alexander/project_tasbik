@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 import 'package:tasbix/widgets/provider.dart';
 
 class SaveAlertDialog extends StatefulWidget {
@@ -26,14 +28,14 @@ class _SaveAlertDialogState extends State<SaveAlertDialog> {
       alignment: Alignment.center,
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       elevation: 24,
-      title: const Text(
-        'Save Dhikr',
+      title: Text(
+        LocaleKeys.saveDhikrAlert.tr(),
         textAlign: TextAlign.center,
       ),
       content: TextFormField(
         controller: _titleDhikrController,
-        decoration: const InputDecoration(
-          focusedBorder: OutlineInputBorder(
+        decoration: InputDecoration(
+          focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(24),
             ),
@@ -42,7 +44,7 @@ class _SaveAlertDialogState extends State<SaveAlertDialog> {
               width: 2,
             ),
           ),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(24),
             ),
@@ -51,7 +53,7 @@ class _SaveAlertDialogState extends State<SaveAlertDialog> {
               width: 2,
             ),
           ),
-          labelText: 'Title Dhikr',
+          labelText: LocaleKeys.titleDhikr.tr(),
         ),
       ),
       actions: [
@@ -64,14 +66,14 @@ class _SaveAlertDialogState extends State<SaveAlertDialog> {
             Navigator.pop(context);
           },
           backgroundColor: const Color(0xff4664FF),
-          child: const Text('Save'),
+          child: Text(LocaleKeys.saveButton.tr()),
         ),
         FloatingActionButton(
           onPressed: () {
             Navigator.pop(context);
           },
           backgroundColor: const Color(0xff4664FF),
-          child: const Text('Back'),
+          child: Text(LocaleKeys.backButton.tr()),
         )
       ],
     );

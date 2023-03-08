@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 import 'package:tasbix/widgets/import_file.dart';
 
 class BigContainer extends StatelessWidget {
@@ -11,7 +13,6 @@ class BigContainer extends StatelessWidget {
     debugPrint('--------new build BigContainer');
     return Container(
       width: mapperOrientation(portrait: 91.w, landscape: 208.w),
-    
       decoration: const ShapeDecoration(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
@@ -27,10 +28,10 @@ class BigContainer extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              children: const [
+              children: [
                 Text(
-                  'Last saved Dhikrs',
-                  style: TextStyle(
+                  LocaleKeys.lastSavedDhikr.tr(),
+                  style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
                       color: Colors.black),
