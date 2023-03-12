@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/widgets/provider.dart';
+import 'package:tasbix/screens/mainPage/provider.dart';
 
 class SaveAlertDialog extends StatefulWidget {
   const SaveAlertDialog({
@@ -73,7 +73,7 @@ class _SaveAlertDialogState extends State<SaveAlertDialog> {
             Navigator.pop(context);
           },
           backgroundColor: const Color(0xff4664FF),
-          child: Text(LocaleKeys.backButton.tr()),
+          child: const Text(LocaleKeys.backButton).tr(),
         )
       ],
     );

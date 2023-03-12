@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/widgets/provider.dart';
+import 'package:tasbix/screens/mainPage/provider.dart';
+import 'package:tasbix/screens/mainPage/setting.dart';
 
 class ButtonsList extends StatefulWidget {
   const ButtonsList({super.key});
@@ -50,13 +51,13 @@ class _ButtonsListState extends State<ButtonsList> {
                       ),
                     ),
                     child: Text(
-                      LocaleKeys.activity.tr(),
+                      LocaleKeys.activity,
                       style: TextStyle(
                           color: myProvider.switcher == false
                               ? const Color(0xff9E9E9E)
                               : const Color(0xffFFFFFF),
                           fontWeight: FontWeight.w400),
-                    ),
+                    ).tr(),
                   ),
                 ),
                 SizedBox(width: 1.3.w),
@@ -78,12 +79,13 @@ class _ButtonsListState extends State<ButtonsList> {
                         ),
                       ),
                     ),
-                    child: Text(LocaleKeys.saved.tr(),
-                        style: TextStyle(
-                            color: myProvider.switcher
-                                ? const Color(0xff9E9E9E)
-                                : const Color(0xffFFFFFF),
-                            fontWeight: FontWeight.w400)),
+                    child: Text(LocaleKeys.saved,
+                            style: TextStyle(
+                                color: myProvider.switcher
+                                    ? const Color(0xff9E9E9E)
+                                    : const Color(0xffFFFFFF),
+                                fontWeight: FontWeight.w400))
+                        .tr(),
                   ),
                 ),
               ],
@@ -113,12 +115,11 @@ class _ButtonsListState extends State<ButtonsList> {
               ),
             ),
             onPressed: () {
-              if (context.locale == const Locale('ru')) {
-                context.setLocale(const Locale('en'));
-              } else {
-                context.setLocale(const Locale('ru'));
-              }
-              context.findAncestorStateOfType()?.setState(() {});
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SetApp(),
+                  ));
             },
             icon: SvgPicture.asset(
               'assets/images/menu.svg',

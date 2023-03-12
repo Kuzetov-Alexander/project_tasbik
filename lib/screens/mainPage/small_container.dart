@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
-import 'package:tasbix/widgets/provider.dart';
-import 'import_file.dart';
+import 'package:tasbix/screens/mainPage/edit_alert_dialog.dart';
+import 'package:tasbix/screens/mainPage/provider.dart';
 
 class SmallContainer extends StatelessWidget {
   const SmallContainer({super.key});
@@ -13,14 +13,11 @@ class SmallContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('--------new build smallContainer');
     final myListDhikr = context.watch<IntProvider>().listDhikr;
-    // return FutureBuilder(
-    //     future: future,
-    //     builder: (context, snapshot) {
-    //       if (snapshot.hasData) {
+
     if (myListDhikr.isEmpty) {
       return const Text('NO BASA');
     }
-    
+
     return ListView.builder(
       shrinkWrap: true,
       itemExtent: 6.h,
@@ -100,9 +97,5 @@ class SmallContainer extends StatelessWidget {
         );
       },
     );
-    // }
-
-    // return const Center(child: CircularProgressIndicator());
-    // });
   }
 }

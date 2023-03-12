@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/widgets/import_file.dart';
+import 'package:tasbix/screens/mainPage/small_container.dart';
 
 class BigContainer extends StatelessWidget {
   const BigContainer({super.key});
@@ -29,17 +29,17 @@ class BigContainer extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(
-                  LocaleKeys.lastSavedDhikr.tr(),
-                  style: const TextStyle(
+                const Text(
+                  LocaleKeys.lastSavedDhikr,
+                  style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
                       color: Colors.black),
-                ),
+                ).tr(),
               ],
             ),
             SizedBox(height: mapperOrientation(portrait: 3.h, landscape: 1.h)),
-            const Expanded(child: SmallContainer()),
+            const Flexible(child: SmallContainer()),
           ],
         ),
       ),

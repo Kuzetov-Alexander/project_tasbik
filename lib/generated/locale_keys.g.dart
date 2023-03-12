@@ -13,3 +13,4 @@ abstract class  LocaleKeys {
   static const counterDhikr = 'counterDhikr';
 
 }
+

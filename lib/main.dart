@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/generated/codegen_loader.g.dart';
-import 'package:tasbix/widgets/import_file.dart';
-import 'package:tasbix/widgets/provider.dart';
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:tasbix/screens/mainPage/big_container.dart';
+import 'package:tasbix/screens/mainPage/button_list.dart';
+import 'package:tasbix/screens/mainPage/button_save_dhikr.dart';
+import 'package:tasbix/screens/mainPage/counter_widget.dart';
+import 'package:tasbix/screens/mainPage/generate_class.dart';
+import 'package:tasbix/screens/mainPage/provider.dart';
+import 'package:tasbix/screens/mainPage/setting.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +31,7 @@ Future<void> main() async {
       path: 'assets/translations',
       fallbackLocale: const Locale('ru'),
       startLocale: const Locale('ru'),
-      saveLocale: false,
+      saveLocale: true,
       assetLoader: const CodegenLoader(),
       child: const MyApp(),
     ),
@@ -41,10 +48,25 @@ class MyApp extends StatelessWidget {
         return ChangeNotifierProvider(
           create: (_) => IntProvider(),
           child: MaterialApp(
-              localizationsDelegates: context.localizationDelegates,
-              supportedLocales: context.supportedLocales,
-              locale: context.locale,
-              home: const MyHomePage()),
+            theme: ThemeData(
+              textTheme: TextTheme(
+                bodyMedium: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+                labelLarge: GoogleFonts.montserrat(
+                  textStyle: const TextStyle(fontWeight: FontWeight.w600),
+                ),
+              ),
+            ),
+            initialRoute: '/',
+            routes: {
+              '/': (context) => const MyHomePage(),
+              '/second': (context) => const SetApp(),
+            },
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+          ),
         );
       },
     );

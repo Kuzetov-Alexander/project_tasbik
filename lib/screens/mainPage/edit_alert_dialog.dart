@@ -4,8 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/widgets/import_file.dart';
-import 'package:tasbix/widgets/provider.dart';
+import 'package:tasbix/screens/mainPage/generate_class.dart';
+import 'package:tasbix/screens/mainPage/provider.dart';
 
 class EditAlertDialog extends StatefulWidget {
   const EditAlertDialog({super.key, required this.index});
@@ -35,10 +35,10 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
       alignment: Alignment.center,
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       elevation: 24,
-      title: Text(
-        LocaleKeys.editTitleDhikr.tr(),
+      title: const Text(
+        LocaleKeys.editTitleDhikr,
         textAlign: TextAlign.center,
-      ),
+      ).tr(),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

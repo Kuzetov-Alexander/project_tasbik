@@ -1,9 +1,10 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
-import 'package:tasbix/widgets/provider.dart';
+import 'package:tasbix/screens/mainPage/provider.dart';
 
 class CounterWidget extends StatelessWidget {
   const CounterWidget({
@@ -12,6 +13,17 @@ class CounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
+    List<AssetSource> listSound = [
+      AssetSource('sound/button.wav'),
+      AssetSource('sound/bumer.wav'),
+      AssetSource('sound/fuck.wav'),
+      AssetSource('sound/hren.wav'),
+      AssetSource('sound/ohYes.wav'),
+      AssetSource('sound/thankSir.wav'),
+      AssetSource('sound/wee.wav'),
+      AssetSource('sound/woo.wav'),
+    ];
     final myProvider = context.read<IntProvider>();
     debugPrint('--------new build CounterWidget');
     return Container(
@@ -50,7 +62,7 @@ class CounterWidget extends StatelessWidget {
               backgroundColor:
                   MaterialStateProperty.all(const Color(0xff778DFF)),
             ),
-            onPressed: () async {
+            onPressed: () {
               myProvider.decrement();
             },
             child: SvgPicture.asset(
@@ -58,7 +70,9 @@ class CounterWidget extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () async {
+            enableFeedback: false,
+            onTap: () {
+              myProvider.player.play(listSound[0]);
               myProvider.increment();
             },
             child: Container(

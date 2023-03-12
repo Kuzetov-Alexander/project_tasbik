@@ -1,11 +1,13 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasbix/widgets/import_file.dart';
+import 'package:tasbix/screens/mainPage/generate_class.dart';
 
 class IntProvider extends ChangeNotifier {
   int counter = 0;
   List<Dhikr> listDhikr = [];
+  final player = AudioPlayer();
 
   bool switcher = true;
 
@@ -26,6 +28,7 @@ class IntProvider extends ChangeNotifier {
     box = await Hive.openBox('myBox');
     listDhikr = box.values.toList();
     prefs.containsKey('counter') ? counter = prefs.getInt('counter')! : null;
+
     notifyListeners();
   }
 
@@ -58,7 +61,9 @@ class IntProvider extends ChangeNotifier {
   }
 
   void decrement() {
-    counter--;
+    if (counter > 0) {
+      counter--;
+    }
     saveCounter();
     notifyListeners();
   }
