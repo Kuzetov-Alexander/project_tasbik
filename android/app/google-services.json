@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "136701382239",
+    "project_id": "project-tasbih-3021f",
+    "storage_bucket": "project-tasbih-3021f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136701382239:android:5d4c2c16116d0cf7a955ea",
+        "android_client_info": {
+          "package_name": "com.example.tasbix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136701382239-qlik4npta50vup6l0kjcknk244fb5l45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7LxbSFUQbgietoHRHOJBkmuLOdrgWuI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136701382239-qlik4npta50vup6l0kjcknk244fb5l45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

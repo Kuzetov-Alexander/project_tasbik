@@ -14,6 +14,8 @@ import 'package:tasbix/screens/mainPage/generate_class.dart';
 import 'package:tasbix/screens/mainPage/localisation_provider.dart';
 import 'package:tasbix/screens/mainPage/provider.dart';
 import 'package:tasbix/screens/mainPage/setting.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,6 +23,9 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(50)) {
     Hive.registerAdapter(DhikrAdapter());
   }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await EasyLocalization.ensureInitialized();
 
   runApp(
