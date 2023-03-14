@@ -24,19 +24,29 @@ class CodegenLoader extends AssetLoader {
     "backButton": "Back",
     "lastSavedDhikr": "Last saved Dhikr",
     "editTitleDhikr": "Edit counter and Title",
-    "counterDhikr": "Counter Dhikr"
+    "counterDhikr": "Counter Dhikr",
+    "lanquage": "Lanquage",
+    "sound": "Sound",
+    "vibration": "Vibration",
+    "countAsVolume": "Count as volume keys",
+     "settings":"Settings"
   };
   static const Map<String, dynamic> ru = {
     "activity": "Основная",
     "saved": "Сохраненки",
-    "saveDhikr": "Сохранить Дхикр",
-    "saveDhikrAlert": "Сохранить Дхикр",
+    "saveDhikr": "Сохранить Dhikr",
+    "saveDhikrAlert": "Сохранить Dhikr",
     "titleDhikr": "Описание",
     "saveButton": "Сохранить",
     "backButton": "Назад",
     "lastSavedDhikr": "Последние сохранения",
-    "editTitleDhikr": "Изменить описание Дхикра",
-    "counterDhikr": "Номер"
+    "editTitleDhikr": "Изменить описание Dhikr",
+    "counterDhikr": "Номер",
+    "lanquage": "Язык",
+    "sound": "Звук",
+    "vibration": "Вибрация",
+    "countAsVolume": "Хрен пойми",
+    "settings": "Настройки"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "en": en,

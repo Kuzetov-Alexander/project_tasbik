@@ -29,7 +29,7 @@ class _ButtonsListState extends State<ButtonsList> {
             color: const Color(0xffFFFFFF),
           ),
           child: SizedBox(
-            width: mapperOrientation(portrait: 74.3.w, landscape: 190.5.w),
+            width: mapperOrientation(portrait: 74.w, landscape: 190.5.w),
             child: Row(
               children: [
                 Expanded(
@@ -79,13 +79,14 @@ class _ButtonsListState extends State<ButtonsList> {
                         ),
                       ),
                     ),
-                    child: Text(LocaleKeys.saved,
-                            style: TextStyle(
-                                color: myProvider.switcher
-                                    ? const Color(0xff9E9E9E)
-                                    : const Color(0xffFFFFFF),
-                                fontWeight: FontWeight.w400))
-                        .tr(),
+                    child: Text(
+                      LocaleKeys.saved,
+                      style: TextStyle(
+                          color: myProvider.switcher
+                              ? const Color(0xff9E9E9E)
+                              : const Color(0xffFFFFFF),
+                          fontWeight: FontWeight.w400),
+                    ).tr(),
                   ),
                 ),
               ],

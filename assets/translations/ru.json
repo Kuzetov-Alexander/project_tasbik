@@ -1,12 +1,17 @@
 {
     "activity": "Основная",
     "saved": "Сохраненки",
-    "saveDhikr": "Сохранить Дхикр",
-    "saveDhikrAlert": "Сохранить Дхикр",
+    "saveDhikr": "Сохранить Dhikr",
+    "saveDhikrAlert": "Сохранить Dhikr",
     "titleDhikr": "Описание",
     "saveButton": "Сохранить",
     "backButton": "Назад",
     "lastSavedDhikr": "Последние сохранения",
-    "editTitleDhikr": "Изменить описание Дхикра",
-    "counterDhikr": "Номер"
+    "editTitleDhikr": "Изменить описание Dhikr",
+    "counterDhikr": "Номер",
+    "lanquage": "Язык",
+    "sound": "Звук",
+    "vibration": "Вибрация",
+    "countAsVolume": "Хрен пойми",
+    "settings": "Настройки"
 }

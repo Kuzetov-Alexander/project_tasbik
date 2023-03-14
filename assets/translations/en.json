@@ -8,6 +8,11 @@
     "backButton": "Back",
     "lastSavedDhikr": "Last saved Dhikr",
     "editTitleDhikr": "Edit counter and Title",
-    "counterDhikr": "Counter Dhikr"
+    "counterDhikr": "Counter Dhikr",
+    "lanquage": "Lanquage",
+    "sound": "Sound",
+    "vibration": "Vibration",
+    "countAsVolume": "Count as volume keys",
+    "settings":"Settings"
 
 }

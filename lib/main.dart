@@ -11,6 +11,7 @@ import 'package:tasbix/screens/mainPage/button_list.dart';
 import 'package:tasbix/screens/mainPage/button_save_dhikr.dart';
 import 'package:tasbix/screens/mainPage/counter_widget.dart';
 import 'package:tasbix/screens/mainPage/generate_class.dart';
+import 'package:tasbix/screens/mainPage/localisation_provider.dart';
 import 'package:tasbix/screens/mainPage/provider.dart';
 import 'package:tasbix/screens/mainPage/setting.dart';
 
@@ -29,9 +30,6 @@ Future<void> main() async {
         Locale('ru'),
       ],
       path: 'assets/translations',
-      fallbackLocale: const Locale('ru'),
-      startLocale: const Locale('ru'),
-      saveLocale: true,
       assetLoader: const CodegenLoader(),
       child: const MyApp(),
     ),
@@ -45,8 +43,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) {
-        return ChangeNotifierProvider(
-          create: (_) => IntProvider(),
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => IntProvider()),
+            ChangeNotifierProvider(create: (_) => ProviderLocalisation()),
+          ],
           child: MaterialApp(
             theme: ThemeData(
               textTheme: TextTheme(
