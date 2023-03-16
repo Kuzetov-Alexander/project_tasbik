@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
-import 'package:tasbix/page/screens/edit_alert_dialog.dart';
-import 'package:tasbix/page/import.dart';
+import 'package:tasbix/page/page_main/edit_alert_dialog.dart';
+import 'package:tasbix/import.dart';
 
 class SmallContainer extends StatelessWidget {
   const SmallContainer({super.key});

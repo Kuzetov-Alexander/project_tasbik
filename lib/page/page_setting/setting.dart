@@ -7,7 +7,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/page/screens/localisation_provider.dart';
+import 'package:tasbix/page/page_authentification/registration.dart';
+import 'package:tasbix/features/localisation_provider.dart';
 
 class SetApp extends StatefulWidget {
   const SetApp({super.key});
@@ -153,6 +154,32 @@ class _SetAppState extends State<SetApp> {
                                 ),
                               ),
                             ],
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegistrationPage(),
+                                ),
+                              );
+                            },
+                            child: const Text(
+                              'Registration',
+                              style: TextStyle(
+                                color: Color(0xff4664FF),
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'Sign up',
+                              style: TextStyle(
+                                color: Color(0xff4664FF),
+                              ),
+                            ),
                           ),
                           bannerAd != null
                               ? Align(

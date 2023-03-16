@@ -4,12 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
-import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/page/import.dart';
+import 'package:tasbix/import.dart';
 
 class ButtonsList extends StatefulWidget {
-  const ButtonsList({super.key, required this.onOpened});
-  final VoidCallback onOpened;
+  const ButtonsList({super.key});
 
   @override
   State<ButtonsList> createState() => _ButtonsListState();
@@ -116,13 +114,12 @@ class _ButtonsListState extends State<ButtonsList> {
               ),
             ),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const SetApp(),
-              //   ),
-              // );
-              widget.onOpened();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SetApp(),
+                ),
+              );
             },
             icon: SvgPicture.asset(
               'assets/images/menu.svg',

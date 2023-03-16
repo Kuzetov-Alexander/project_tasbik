@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/page/import.dart';
+import 'package:tasbix/import.dart';
 
 class SaveAlertDialog extends StatefulWidget {
   const SaveAlertDialog({
