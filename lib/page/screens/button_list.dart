@@ -1,15 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
+
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/screens/mainPage/provider.dart';
-import 'package:tasbix/screens/mainPage/setting.dart';
+import 'package:tasbix/page/import.dart';
 
 class ButtonsList extends StatefulWidget {
-  const ButtonsList({super.key});
+  const ButtonsList({super.key, required this.onOpened});
+  final VoidCallback onOpened;
 
   @override
   State<ButtonsList> createState() => _ButtonsListState();
@@ -116,11 +116,13 @@ class _ButtonsListState extends State<ButtonsList> {
               ),
             ),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SetApp(),
-                  ));
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const SetApp(),
+              //   ),
+              // );
+              widget.onOpened();
             },
             icon: SvgPicture.asset(
               'assets/images/menu.svg',

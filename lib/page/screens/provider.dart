@@ -2,7 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasbix/screens/mainPage/generate_class.dart';
+import 'package:tasbix/generated/generate_class.dart';
 
 class IntProvider extends ChangeNotifier {
   int counter = 0;

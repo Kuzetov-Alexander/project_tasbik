@@ -47,7 +47,7 @@ dependencies:
   audioplayers: ^3.0.1
   firebase_core: ^2.7.1
   firebase_auth: ^4.2.10
-  # google_mobile_ads: ^2.3.0
+  google_mobile_ads: ^2.3.0
 
 dev_dependencies:
   flutter_test:

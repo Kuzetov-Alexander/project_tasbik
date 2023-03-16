@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
 
+
 class ProviderLocalisation extends ChangeNotifier {
   bool select = true;
 

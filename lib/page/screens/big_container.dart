@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
 import 'package:sizer/sizer.dart';
+
 import 'package:tasbix/features/method_orientation.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/screens/mainPage/small_container.dart';
+import 'package:tasbix/page/import.dart';
 
 class BigContainer extends StatelessWidget {
   const BigContainer({super.key});

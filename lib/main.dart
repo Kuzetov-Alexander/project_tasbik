@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/generated/codegen_loader.g.dart';
-
+import 'package:tasbix/page/import.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:tasbix/screens/mainPage/big_container.dart';
-import 'package:tasbix/screens/mainPage/button_list.dart';
-import 'package:tasbix/screens/mainPage/button_save_dhikr.dart';
-import 'package:tasbix/screens/mainPage/counter_widget.dart';
-import 'package:tasbix/screens/mainPage/generate_class.dart';
-import 'package:tasbix/screens/mainPage/localisation_provider.dart';
-import 'package:tasbix/screens/mainPage/provider.dart';
-import 'package:tasbix/screens/mainPage/setting.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tasbix/generated/generate_class.dart';
 import 'firebase_options.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,13 +20,11 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await EasyLocalization.ensureInitialized();
+  MobileAds.instance.initialize();
 
   runApp(
     EasyLocalization(
-      supportedLocales: const [
-        Locale('en'),
-        Locale('ru'),
-      ],
+      supportedLocales: const [Locale('en'), Locale('ru')],
       path: 'assets/translations',
       assetLoader: const CodegenLoader(),
       child: const MyApp(),
@@ -97,7 +88,16 @@ class MyHomePageState extends State<MyHomePage> {
           padding: EdgeInsets.symmetric(vertical: 5.w, horizontal: 2.h),
           child: CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(child: ButtonsList()),
+              SliverToBoxAdapter(child: ButtonsList(
+                onOpened: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SetApp(),
+                    ),
+                  ).whenComplete(() => setState(() {}));
+                },
+              )),
               SliverToBoxAdapter(child: SizedBox(height: 3.h)),
               SliverToBoxAdapter(
                 child: activityButtonTrue(

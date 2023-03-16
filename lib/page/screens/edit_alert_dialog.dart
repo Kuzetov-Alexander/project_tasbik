@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/generated/locale_keys.g.dart';
-import 'package:tasbix/screens/mainPage/generate_class.dart';
-import 'package:tasbix/screens/mainPage/provider.dart';
+import 'package:tasbix/generated/generate_class.dart';
+
+import 'package:tasbix/page/import.dart';
 
 class EditAlertDialog extends StatefulWidget {
   const EditAlertDialog({super.key, required this.index});
