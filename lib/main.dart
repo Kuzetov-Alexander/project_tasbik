@@ -58,7 +58,6 @@ class MyApp extends StatelessWidget {
               '/': (context) => const MyHomePage(),
               '/second': (context) => const SetApp(),
               '/third': (context) => const RegistrationPage(),
-              // '/four':(context) => RegistrationPage(),
             },
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,

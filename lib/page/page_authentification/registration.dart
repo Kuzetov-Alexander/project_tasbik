@@ -17,7 +17,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _emailFocus = FocusNode();
   final _passwordFocus = FocusNode();
   final _confirmPasswordFocus = FocusNode();
-  final formKey = GlobalKey();
+  final formKey = GlobalKey<FormState>();
   String password = '';
 
   @override
@@ -114,9 +114,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             BorderSide(color: Colors.blue.shade200, width: 2),
                       ),
                       labelText: 'Enter email'),
-                  validator: (email) => email != null && email.contains('@')
-                      ? 'Enter correct email'
-                      : null,
+                  validator: emailValidator,
                 ),
                 const SizedBox(height: 30),
                 TextFormField(
@@ -154,7 +152,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         borderSide:
                             BorderSide(color: Colors.blue.shade200, width: 2),
                       ),
-                      labelText: 'Enter paswword'),
+                      labelText: 'Enter password'),
                   onChanged: (value) => password = value,
                   validator: passwordValidator,
                 ),
@@ -190,14 +188,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         borderSide:
                             BorderSide(color: Colors.blue.shade200, width: 2),
                       ),
-                      labelText: 'Enter correct paswword'),
+                      labelText: 'Enter correct password'),
                   validator: (value) =>
                       MatchValidator(errorText: 'passwords do not match')
                           .validateMatch(value!, password),
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
-                    onPressed: () {}, child: const Text('Registration')),
+                    style: ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      backgroundColor:
+                          MaterialStateProperty.all(const Color(0xff4664FF)),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      _submitForm();
+                    },
+                    child: const Text('Registration')),
               ],
             ),
           ),
@@ -206,36 +217,32 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  // void _submitForm() {
-  //   if (formKey.currentState!.validate()) {
-  //     formKey.currentState!.save();
+  void _submitForm() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
 
-  //     log(
-  //       'Number email: ${emailController.text}',
-  //     );
-
-  //     log(
-  //       'Number password: ${passwordController.text}',
-  //     );
-  //     log(
-  //       'Confirm password: ${confirmPasswordController.text}',
-  //     );
-  //   }
-  // }
-
-  final passwordValidator = MultiValidator([
-    RequiredValidator(errorText: 'password is required'),
-    MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
-    PatternValidator(
-      r'(?=.*?[#?!@$%^&*()_])',
-      errorText: 'passwords must have at least one special character',
-    )
-  ]);
-
-  final emailValidator = MultiValidator([
-    EmailValidator(errorText: 'Error Text'),
-  ]);
+      debugPrint('---------------Number email: ${emailController.text}');
+      debugPrint('---------------Number password: ${passwordController.text}');
+      debugPrint(
+          '---------------Confirm password: ${confirmPasswordController.text}');
+      // SnackBarService.showSnackBar(context, 'Repeat enter password', true);
+      // return;
+    }
+  }
 }
+
+final passwordValidator = MultiValidator([
+  RequiredValidator(errorText: 'password is required'),
+  MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
+  PatternValidator(
+    r'(?=.*?[#?!@$%^&*()_])',
+    errorText: 'passwords must have at least one special character',
+  )
+]);
+
+final emailValidator = MultiValidator([
+  EmailValidator(errorText: 'Error Text'),
+]);
 
 class SnackBarService {
   static const errorColor = Colors.red;

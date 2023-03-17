@@ -13,3 +13,4 @@ export 'package:tasbix/page/page_main/home.dart';
 export 'package:tasbix/generated/codegen_loader.g.dart';
 export 'package:tasbix/generated/generate_class.dart';
 export 'package:tasbix/generated/locale_keys.g.dart';
+

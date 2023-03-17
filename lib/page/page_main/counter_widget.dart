@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sizer/sizer.dart';
@@ -12,17 +11,16 @@ class CounterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    List<AssetSource> listSound = [
-      AssetSource('sound/button.wav'),
-      AssetSource('sound/bumer.wav'),
-      AssetSource('sound/fuck.wav'),
-      AssetSource('sound/hren.wav'),
-      AssetSource('sound/ohYes.wav'),
-      AssetSource('sound/thankSir.wav'),
-      AssetSource('sound/wee.wav'),
-      AssetSource('sound/woo.wav'),
-    ];
+    // List<AssetSource> listSound = [
+    //   AssetSource('sound/button.wav'),
+    //   AssetSource('sound/bumer.wav'),
+    //   AssetSource('sound/fuck.wav'),
+    //   AssetSource('sound/hren.wav'),
+    //   AssetSource('sound/ohYes.wav'),
+    //   AssetSource('sound/thankSir.wav'),
+    //   AssetSource('sound/wee.wav'),
+    //   AssetSource('sound/woo.wav'),
+    // ];
     final myProvider = context.read<IntProvider>();
     debugPrint('--------new build CounterWidget');
     return Container(
@@ -69,9 +67,8 @@ class CounterWidget extends StatelessWidget {
             ),
           ),
           InkWell(
-            enableFeedback: false,
             onTap: () {
-              myProvider.player.play(listSound[0]);
+              // myProvider.player.play(listSound[0]);
               myProvider.increment();
             },
             child: Container(

@@ -48,7 +48,7 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
                   Radius.circular(24),
                 ),
                 borderSide: BorderSide(
-                  color: Colors.amber,
+                  color: Color(0xff4664FF),
                   width: 2,
                 ),
               ),
@@ -73,7 +73,7 @@ class _EditAlertDialogState extends State<EditAlertDialog> {
                   Radius.circular(24),
                 ),
                 borderSide: BorderSide(
-                  color: Colors.amber,
+                  color: Color(0xff4664FF),
                   width: 2,
                 ),
               ),
