@@ -10,7 +10,6 @@ export 'package:tasbix/page/page_main/button_save_dhikr.dart';
 export 'package:tasbix/features/localisation_provider.dart';
 export 'package:tasbix/page/page_authentification/registration.dart';
 export 'package:tasbix/page/page_main/home.dart';
-export 'package:tasbix/generated/codegen_loader.g.dart';
-export 'package:tasbix/generated/generate_class.dart';
-export 'package:tasbix/generated/locale_keys.g.dart';
 
+export 'package:tasbix/page/page_authentification/signup.dart';
+export 'package:tasbix/page/page_authentification/verificatiom_email.dart';

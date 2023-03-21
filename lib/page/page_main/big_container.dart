@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:tasbix/features/method_orientation.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 import 'package:tasbix/import.dart';
 
 class BigContainer extends StatelessWidget {

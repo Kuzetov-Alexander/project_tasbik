@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasbix/generated/generate_class.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 
 import 'package:tasbix/import.dart';
 

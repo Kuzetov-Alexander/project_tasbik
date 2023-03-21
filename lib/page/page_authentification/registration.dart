@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasbix/features/style_text.dart';
+import 'package:tasbix/page/page_authentification/widget/widget.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -12,7 +15,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  bool isHiddenPassword = true;
+  bool _isHiddenPassword = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
@@ -20,7 +23,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _passwordFocus = FocusNode();
   final _confirmPasswordFocus = FocusNode();
   final formKey = GlobalKey<FormState>();
-  String password = '';
+  String _password = '';
 
   @override
   void dispose() {
@@ -44,13 +47,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   void _passwordView() {
     setState(() {
-      isHiddenPassword = !isHiddenPassword;
+      _isHiddenPassword = !_isHiddenPassword;
+    });
+  }
+
+  void backScreen() {
+    setState(() {
+      _submitForm().then((value) => context.go('/verifymail'));
     });
   }
 
   Future<void> _submitForm() async {
     if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
+      // formKey.currentState!.save();
 
       debugPrint('---------------Number email: ${emailController.text}');
       debugPrint('---------------Number password: ${passwordController.text}');
@@ -61,7 +70,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
-      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         SnackBarService.showSnackBar(
@@ -97,17 +105,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       ),
       home: Scaffold(
         resizeToAvoidBottomInset: false,
-        // appBar: AppBar(
-        //   backgroundColor: Colors.white,
-        //   foregroundColor: const Color(0xff4664FF),
-        //   leading: IconButton(
-        //       onPressed: () {
-        //         Navigator.pop(context);
-        //       },
-        //       icon: const Icon(Icons.arrow_back_ios)),
-        //   title: const Text('Registration'),
-        //   centerTitle: true,
-        // ),
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(right: 8.w, top: 1.w),
@@ -120,7 +117,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                         icon: const Icon(
                           Icons.arrow_back_ios_new_rounded,
@@ -176,11 +173,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           },
                           focusNode: _passwordFocus,
                           autocorrect: false,
-                          obscureText: isHiddenPassword,
+                          obscureText: _isHiddenPassword,
                           controller: passwordController,
                           decoration: InputDecoration(
                               suffix: InkWell(
-                                child: Icon(isHiddenPassword
+                                child: Icon(_isHiddenPassword
                                     ? Icons.visibility_off
                                     : Icons.visibility),
                                 onTap: () {
@@ -205,18 +202,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     color: Colors.grey.shade400, width: 2),
                               ),
                               labelText: 'Enter password'),
-                          onChanged: (value) => password = value,
+                          onChanged: (value) => _password = value,
                           validator: passwordValidator,
                         ),
                         SizedBox(height: 8.w),
                         TextFormField(
                           focusNode: _confirmPasswordFocus,
                           autocorrect: false,
-                          obscureText: isHiddenPassword,
+                          obscureText: _isHiddenPassword,
                           controller: confirmPasswordController,
                           decoration: InputDecoration(
                               suffix: InkWell(
-                                child: Icon(isHiddenPassword
+                                child: Icon(_isHiddenPassword
                                     ? Icons.visibility_off
                                     : Icons.visibility),
                                 onTap: () {
@@ -243,7 +240,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               labelText: 'Enter correct password'),
                           validator: (value) => MatchValidator(
                                   errorText: 'passwords do not match')
-                              .validateMatch(value!, password),
+                              .validateMatch(value!, _password),
                         ),
                         SizedBox(height: 8.w),
                         SizedBox(
@@ -255,9 +252,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 side: MaterialStateProperty.all(
                                     const BorderSide(
                                         color: Color(0xff4664FF), width: 2)),
-                                // backgroundColor:
-                                // MaterialStateProperty.all(Colors.white),
-                                // const Color(0xff4664FF)),
                                 shape: MaterialStateProperty.all(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(24),
@@ -265,7 +259,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 ),
                               ),
                               onPressed: () {
+                                emailController.text = 'akuzetovip@gmail.com';
+                                _password = 'Qazwsxedc1!';
+                                passwordController.text = _password;
+                                confirmPasswordController.text = 'Qazwsxedc1!';
                                 _submitForm();
+                                backScreen();
                               },
                               child: Text(
                                 'Registration',
@@ -283,67 +282,4 @@ class _RegistrationPageState extends State<RegistrationPage> {
       ),
     );
   }
-}
-
-final passwordValidator = MultiValidator([
-  RequiredValidator(errorText: 'password is required'),
-  MinLengthValidator(8, errorText: 'password must be at least 8 digits long'),
-  PatternValidator(
-    r'(?=.*?[#?!@$%^&*()_])',
-    errorText: 'passwords must have at least one special character',
-  )
-]);
-
-final emailValidator = MultiValidator([
-  EmailValidator(errorText: 'Error Text'),
-]);
-
-class SnackBarService {
-  static const errorColor = Colors.red;
-  static const okColor = Colors.green;
-
-  static Future<void> showSnackBar(
-      BuildContext context, String message, bool error) async {
-    ScaffoldMessenger.of(context).removeCurrentSnackBar();
-
-    final snackBar = SnackBar(
-      content: Text(message),
-      backgroundColor: error ? errorColor : okColor,
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-}
-
-abstract class MyStyle {
-  const MyStyle._();
-
-  static TextStyle styleTextGreen = GoogleFonts.montserrat(
-    fontSize: 24,
-    fontWeight: FontWeight.w700,
-    color: Colors.green,
-  );
-
-  static TextStyle styleTextBlue = GoogleFonts.montserrat(
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    color: const Color(0xff4664FF),
-  );
-
-  static TextStyle styleTextWhite = GoogleFonts.montserrat(
-    fontSize: 24,
-    fontWeight: FontWeight.w700,
-    color: Colors.white,
-  );
-
-  static TextStyle styleTextValidator =
-      GoogleFonts.montserrat(fontSize: 20, fontWeight: FontWeight.w400);
-
-  static TextStyle styleTextW7 =
-      GoogleFonts.montserrat(fontSize: 24, fontWeight: FontWeight.w700);
-
-  static TextStyle styleText =
-      GoogleFonts.montserrat(fontSize: 24, fontWeight: FontWeight.w600);
-
-  static TextStyle styleTextSmall =
-      GoogleFonts.montserrat(fontSize: 20, fontWeight: FontWeight.w600);
 }

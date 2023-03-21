@@ -1,9 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:go_router/go_router.dart';
 import 'package:sizer/sizer.dart';
 import 'package:tasbix/features/method_orientation.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 import 'package:tasbix/import.dart';
 
 class ButtonsList extends StatefulWidget {
@@ -114,12 +115,7 @@ class _ButtonsListState extends State<ButtonsList> {
               ),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const SetApp(),
-                ),
-              );
+              context.go('/setting');
             },
             icon: SvgPicture.asset(
               'assets/images/menu.svg',

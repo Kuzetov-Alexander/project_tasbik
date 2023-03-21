@@ -1,9 +1,13 @@
 import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sizer/sizer.dart';
+import 'package:tasbix/features/style_text.dart';
+import 'package:tasbix/generated/locale_keys.g.dart';
 
 import 'package:tasbix/import.dart';
 
@@ -56,6 +60,7 @@ class _SetAppState extends State<SetApp> {
   @override
   Widget build(BuildContext context) {
     final callProvider = context.read<ProviderLocalisation>();
+    final user = FirebaseAuth.instance.currentUser;
 
     return Sizer(
       builder: (BuildContext context, Orientation orientation,
@@ -84,7 +89,7 @@ class _SetAppState extends State<SetApp> {
             backgroundColor: const Color(0xffE5E5E5),
             body: SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(top: 2.h, right: 10.w),
+                padding: EdgeInsets.only(top: 1.h, right: 10.w),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,13 +99,16 @@ class _SetAppState extends State<SetApp> {
                       children: [
                         IconButton(
                             onPressed: () {
-                              Navigator.pop(context);
+                              context.pop();
                             },
                             icon: const Icon(
                               Icons.arrow_back_ios_new_rounded,
                               color: Color(0xff4664FF),
                             )),
-                        const Text(LocaleKeys.settings).tr(),
+                        Text(
+                          LocaleKeys.settings,
+                          style: MyStyle.styleTextBlue,
+                        ).tr(),
                       ],
                     ),
                     Padding(
@@ -152,44 +160,59 @@ class _SetAppState extends State<SetApp> {
                               ),
                             ],
                           ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RegistrationPage(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Account'),
+                              TextButton(
+                                onPressed: () {
+                                  if (user != null) {
+                                    FirebaseAuth.instance.signOut();
+                                    FirebaseAuth.instance
+                                        .signOut()
+                                        .then((value) => context.pop());
+                                  } else {
+                                    context.go('/signup');
+                                  }
+                                },
+                                child: Text(
+                                  user != null ? 'Sign out' : 'Sign In',
+                                  style: const TextStyle(
+                                    color: Color(0xff4664FF),
+                                  ),
                                 ),
-                              );
-                            },
-                            child: const Text(
-                              'Registration',
-                              style: TextStyle(
-                                color: Color(0xff4664FF),
                               ),
-                            ),
+                            ],
                           ),
-                          TextButton(
-                            onPressed: () {},
-                            child: const Text(
-                              'Sign up',
-                              style: TextStyle(
-                                color: Color(0xff4664FF),
-                              ),
-                            ),
-                          ),
-                          bannerAd != null
-                              ? Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: SafeArea(
-                                    child: SizedBox(
-                                      width: bannerAd!.size.width.toDouble(),
-                                      height: bannerAd!.size.height.toDouble(),
-                                      child: AdWidget(ad: bannerAd!),
+                          user != null 
+                              ? const SizedBox.shrink()
+                              : bannerAd != null
+                                  ? Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: SafeArea(
+                                        child: SizedBox(
+                                          width:
+                                              bannerAd!.size.width.toDouble(),
+                                          height:
+                                              bannerAd!.size.height.toDouble(),
+                                          child: AdWidget(ad: bannerAd!),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                          user != null
+                              ? const SizedBox.shrink()
+                              : TextButton(
+                                  onPressed: () {
+                                    context.go('/registration');
+                                  },
+                                  child: const Text(
+                                    'Registration',
+                                    style: TextStyle(
+                                      color: Color(0xff4664FF),
                                     ),
                                   ),
-                                )
-                              : const SizedBox.shrink(),
+                                ),
                         ],
                       ),
                     ),
