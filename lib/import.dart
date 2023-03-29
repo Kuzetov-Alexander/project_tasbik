@@ -10,6 +10,5 @@ export 'package:tasbix/page/page_main/button_save_dhikr.dart';
 export 'package:tasbix/features/localisation_provider.dart';
 export 'package:tasbix/page/page_authentification/registration.dart';
 export 'package:tasbix/page/page_main/home.dart';
-
 export 'package:tasbix/page/page_authentification/signup.dart';
 export 'package:tasbix/page/page_authentification/verificatiom_email.dart';

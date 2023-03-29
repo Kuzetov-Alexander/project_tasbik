@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tasbix/import.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasbix/page/page_authentification/widget/widget.dart';
+import 'package:tasbix/page/page_main/home.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});
@@ -13,15 +14,16 @@ class VerifyEmailScreen extends StatefulWidget {
 }
 
 class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
-  bool isEmailVerified = false;
   bool canResendEmail = false;
+  bool isEmailVerified = false;
   Timer? timer;
 
   @override
   void initState() {
     super.initState();
 
-    isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
+    final user = FirebaseAuth.instance.currentUser;
+    isEmailVerified = user!.emailVerified;
 
     if (!isEmailVerified) {
       sendVerificationEmail();
@@ -90,6 +92,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       fontSize: 20,
                     ),
                   ),
+                  Text('$timer'),
                   const SizedBox(height: 20),
                   ElevatedButton.icon(
                     onPressed: canResendEmail ? sendVerificationEmail : null,
@@ -101,6 +104,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     onPressed: () async {
                       timer?.cancel();
                       await FirebaseAuth.instance.currentUser!.delete();
+                      context.go('/');
                     },
                     child: const Text(
                       'Отменить',
@@ -108,7 +112,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                         color: Colors.blue,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

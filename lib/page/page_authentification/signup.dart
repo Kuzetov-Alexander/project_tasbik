@@ -37,14 +37,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  void backPage() {
-    setState(() {
-      login().then(
-        (value) => context.pop(),
-      );
-    });
-  }
-
   @override
   void dispose() {
     emailController.dispose();
@@ -55,9 +47,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> login() async {
-    // emailController.text = 'akuzetovip@gmail.com';
-    // _password = 'Qazwsxedc1!';
-    // passwordController.text = _password;
+    emailController.text = 'akuzetovip@gmail.com';
+    _password = 'Qazwsxedc1!';
+    passwordController.text = _password;
 
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
@@ -232,8 +224,9 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               onPressed: () {
-                                login();
-                                backPage();
+                                setState(() {
+                                  login().then((value) => context.pop());
+                                });
                               },
                               child:
                                   Text('Login', style: MyStyle.styleTextBlue)),

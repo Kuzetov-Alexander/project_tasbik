@@ -50,9 +50,6 @@ class MyApp extends StatelessWidget {
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              // pageTransitionsTheme: const PageTransitionsTheme(builders: {
-              //   TargetPlatform.android: CupertinoPageTransitionsBuilder
-              // }),
               textTheme: TextTheme(
                 bodyMedium: GoogleFonts.montserrat(
                   textStyle: const TextStyle(fontWeight: FontWeight.w600),

@@ -51,12 +51,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
     });
   }
 
-  void backScreen() {
-    setState(() {
-      _submitForm().then((value) => context.go('/verifymail'));
-    });
-  }
-
   Future<void> _submitForm() async {
     if (formKey.currentState!.validate()) {
       // formKey.currentState!.save();
@@ -78,6 +72,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
       } else {
         SnackBarService.showSnackBar(context, 'Неизвестная ошибка', true);
       }
+      debugPrint(e.code);
+    } catch (e) {
+      debugPrint('----------$e');
     }
   }
 
@@ -259,12 +256,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 ),
                               ),
                               onPressed: () {
-                                emailController.text = 'akuzetovip@gmail.com';
+                                emailController.text = 'uraltools96@mail.ru';
+                                // emailController.text = 'ip.stolets@yandex.ru';
                                 _password = 'Qazwsxedc1!';
                                 passwordController.text = _password;
                                 confirmPasswordController.text = 'Qazwsxedc1!';
-                                _submitForm();
-                                backScreen();
+                                _submitForm().then((value) {
+                                  setState(() {
+                                    context.go('/verifymail');
+                                  });
+                                });
                               },
                               child: Text(
                                 'Registration',

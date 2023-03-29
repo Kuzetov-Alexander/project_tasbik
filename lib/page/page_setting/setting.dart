@@ -25,7 +25,7 @@ class _SetAppState extends State<SetApp> {
   @override
   void initState() {
     super.initState();
-    loadAd();
+    // loadAd();
   }
 
   // replace this test ad unit with your own ad unit.
@@ -114,7 +114,8 @@ class _SetAppState extends State<SetApp> {
                     Padding(
                       padding: EdgeInsets.only(left: 10.w, top: 2.h),
                       child: Column(
-                        children: [
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -184,7 +185,7 @@ class _SetAppState extends State<SetApp> {
                               ),
                             ],
                           ),
-                          user != null 
+                          user != null
                               ? const SizedBox.shrink()
                               : bannerAd != null
                                   ? Align(
@@ -200,19 +201,34 @@ class _SetAppState extends State<SetApp> {
                                       ),
                                     )
                                   : const SizedBox.shrink(),
-                          user != null
-                              ? const SizedBox.shrink()
-                              : TextButton(
-                                  onPressed: () {
-                                    context.go('/registration');
-                                  },
-                                  child: const Text(
-                                    'Registration',
-                                    style: TextStyle(
-                                      color: Color(0xff4664FF),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: user == null
+                                ? TextButton(
+                                    onPressed: () {
+                                      context.go('/registration');
+                                    },
+                                    child: const Text(
+                                      'Registration',
+                                      style: TextStyle(
+                                        color: Color(0xff4664FF),
+                                      ),
+                                    ),
+                                  )
+                                : ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.red),
+                                    onPressed: () {
+                                      context.go('/registration');
+                                    },
+                                    child: const Text(
+                                      'Delete account',
+                                      style: TextStyle(color: Colors.white
+                                          //Color(0xff4664FF),
+                                          ),
                                     ),
                                   ),
-                                ),
+                          ),
                         ],
                       ),
                     ),
